@@ -1,2 +1,6 @@
-target
+.classpath
+.project
+.settings/
+/target/**
 .idea/workspace.xml
+foo.txt
