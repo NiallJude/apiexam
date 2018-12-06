@@ -14,10 +14,8 @@ public class ReadJSON {
 
     public void readJSONFile() {
 
-        ReadJSON readJSON = new ReadJSON();
-
         // Get JSON String from the file
-        String json = readJSON.getJSONString();
+        String json = getJSONString();
         // Now read the json String using the GithubApiHandler and GSON
         GithubApiHandler githubApiHandler = getGithubApiHandler(json);
 
@@ -26,8 +24,12 @@ public class ReadJSON {
         // Get a subList of first 10 projects (cope with Twitter rate limits)
         List<Project> projectsToSearch = getRateLimitedList(projects);
 
-        System.out.println("\nProjects selected by name: \n");
+        // Print project names
+        printProjectNames(projectsToSearch);
+    }
 
+    private void printProjectNames(List<Project> projectsToSearch) {
+        System.out.println("\nProjects selected by name: \n");
         for (Project project : projectsToSearch) {
             System.out.println(project.getName());
         }
@@ -50,7 +52,7 @@ public class ReadJSON {
     private String getJSONString() {
         StringBuilder sb = new StringBuilder();
         try {
-            InputStream is = new FileInputStream("foo.json");
+            InputStream is = new FileInputStream("GitHub.json");
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
             String line = buf.readLine();
             while (line != null) {
