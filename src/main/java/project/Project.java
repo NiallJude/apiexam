@@ -4,40 +4,18 @@ public class Project {
 
     // Vars
     private int id;
-    private String nodeId;
     private String description;
-    private String htmlUrl;
-
-    public String getNodeId() {
-        return nodeId;
-    }
-
-    public void setNodeId(String nodeId) {
-        this.nodeId = nodeId;
-    }
-
-    private String projectUrl;
     private String name;
-    private String fullName;
-    private String summary;
+    private String full_name;
 
-    // Default Constructor
-    public Project(String projectUrl, String name, String fullName, String summary) {
-        this.projectUrl = projectUrl;
+    public Project(int id, String nodeId, String description, String htmlUrl, String projectUrl, String name, String full_name, String summary) {
+        this.id = id;
+        this.description = description;
         this.name = name;
-        this.fullName = fullName;
-        this.summary = summary;
+        this.full_name = full_name;
     }
 
     // Getters and Setters
-    public String getProjectUrl() {
-        return projectUrl;
-    }
-
-    public void setProjectUrl(String projectUrl) {
-        this.projectUrl = projectUrl;
-    }
-
     public String getName() {
         return name;
     }
@@ -46,8 +24,12 @@ public class Project {
         this.name = name;
     }
 
+    public void setFullName(String full_name) {
+        this.full_name = full_name;
+    }
+
     public String getFullName() {
-        return fullName;
+        return full_name;
     }
 
     public int getId() {
@@ -57,15 +39,15 @@ public class Project {
     public void setId(int id) {
         this.id = id;
     }
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
-    public String getSummary() {
-        return summary;
-    }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", full_name='" + full_name + '\'' +
+                '}';
     }
 }
