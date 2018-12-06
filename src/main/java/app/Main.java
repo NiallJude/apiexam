@@ -1,17 +1,12 @@
 package app;
 
-// Apache Imports
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-// Java Imports
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -57,6 +52,30 @@ public class Main {
 
         // Print Output
         main.printResponse("Response Payload is " + result);
+
+        int index = result.indexOf("name");
+        int index2 = result.indexOf("full_");
+        System.out.println();
+
+        String sub;
+        sub = result.substring(index,index2-2);
+        index = sub.indexOf(":");
+        index++;
+        sub = sub.substring(index,sub.length());
+        sub = sub.replaceAll("^\"|\"$", "");
+        System.out.println(sub);
+
+        writeResponse(result);
+
+    }
+
+    public void writeResponse(StringBuffer result) {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("foo.json"), "utf-8"))) {
+            writer.append(result);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private StringBuffer getAPIResponse(Main main, CloseableHttpClient httpclient, String scheme, String host, String path, String searchParameter, String searchValue, StringBuffer result) {
@@ -65,8 +84,16 @@ public class Main {
         try {
             URI uri = main.getUri(scheme, host, path, searchParameter, searchValue);
             HttpGet httpGet = new HttpGet(uri);
+            httpGet.addHeader("accept","application/json");
             response = httpclient.execute(httpGet);
-            result = main.readResponse(response);
+
+            //verify the valid error code first
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode != 200) {
+                throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+            }
+
+            result = main.processResponse(response);
         } catch (URISyntaxException ex) {
             main.printResponse("Invalid URI.");
             ex.printStackTrace();
@@ -77,7 +104,7 @@ public class Main {
         return result;
     }
 
-    private StringBuffer readResponse(HttpResponse response) throws IOException {
+    private StringBuffer processResponse(HttpResponse response) throws IOException {
 
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         StringBuffer result = new StringBuffer();

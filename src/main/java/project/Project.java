@@ -3,6 +3,19 @@ package project;
 public class Project {
 
     // Vars
+    private int id;
+    private String nodeId;
+    private String description;
+    private String htmlUrl;
+
+    public String getNodeId() {
+        return nodeId;
+    }
+
+    public void setNodeId(String nodeId) {
+        this.nodeId = nodeId;
+    }
+
     private String projectUrl;
     private String name;
     private String fullName;
@@ -37,6 +50,13 @@ public class Project {
         return fullName;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
