@@ -1,4 +1,4 @@
-package api;
+package com.nialljude.dev.api;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

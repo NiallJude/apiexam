@@ -1,4 +1,4 @@
-package github;
+package com.nialljude.dev.github;
 
 public class Project {
 

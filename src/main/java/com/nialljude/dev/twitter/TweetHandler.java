@@ -1,4 +1,4 @@
-package twitter;
+package com.nialljude.dev.twitter;
 
 import java.util.List;
 

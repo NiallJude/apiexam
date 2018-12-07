@@ -1,4 +1,4 @@
-package twitter;
+package com.nialljude.dev.twitter;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;

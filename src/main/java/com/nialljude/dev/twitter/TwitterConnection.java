@@ -1,4 +1,4 @@
-package twitter;
+package com.nialljude.dev.twitter;
 
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;

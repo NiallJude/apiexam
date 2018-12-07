@@ -1,4 +1,4 @@
-package github;
+package com.nialljude.dev.github;
 
 import java.util.List;
 

@@ -58,7 +58,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        app.Main
+                                        com.nialljude.dev.app.Main
                                     </mainClass>
                                 </manifest>
                             </archive>

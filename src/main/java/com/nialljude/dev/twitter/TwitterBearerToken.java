@@ -1,4 +1,4 @@
-package twitter;
+package com.nialljude.dev.twitter;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;

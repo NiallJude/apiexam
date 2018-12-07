@@ -1,8 +1,8 @@
-package api;
+package com.nialljude.dev.api;
 
 import com.google.gson.Gson;
-import github.GithubApiHandler;
-import github.Project;
+import com.nialljude.dev.github.GithubApiHandler;
+import com.nialljude.dev.github.Project;
 
 import java.io.*;
 import java.util.List;
