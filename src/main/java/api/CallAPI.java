@@ -24,12 +24,12 @@ public class CallAPI {
         String path = "/search/repositories";
         String searchParameter = "q";
         String searchValue = "reactive";
+        String fileName = "Github.json";
 
         // Get StringBuffer result from API Call
         result = getAPIResponse(httpClient, scheme, host, path, searchParameter, searchValue);
 
         // Write response to a file in JSON
-        String fileName = "GitHub.json";
         writeResponse(result, fileName);
 
         closeResource(httpClient);
@@ -94,7 +94,7 @@ public class CallAPI {
         return result;
     }
 
-    private URI getUri(String scheme, String host, String path, String searchParameter, String searchValue) throws URISyntaxException {
+    public URI getUri(String scheme, String host, String path, String searchParameter, String searchValue) throws URISyntaxException {
         return new URIBuilder()
                 .setScheme(scheme)
                 .setHost(host)

@@ -50,7 +50,7 @@ public class ReadJSON {
     private String getJSONString() {
         StringBuilder sb = new StringBuilder();
         try {
-            InputStream is = new FileInputStream("GitHub.json");
+            InputStream is = new FileInputStream("Github.json");
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
             String line = buf.readLine();
             while (line != null) {

@@ -23,6 +23,8 @@ public class Main {
     public static void main(String[] args) {
         // Call GitHub API
         CallAPI api = new CallAPI();
+        String apiToQuery = "github";
+        String projectType = "reactive";
         api.runAPICall();
 
         // Read JSON and get 10 projects
