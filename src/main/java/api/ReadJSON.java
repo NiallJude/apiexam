@@ -30,18 +30,16 @@ public class ReadJSON {
 
     private void printProjectNames(List<Project> projectsToSearch) {
         System.out.println("\nProjects selected by name: \n");
-        for (Project project : projectsToSearch) {
+        for (Project project : projectsToSearch)
             System.out.println(project.getName());
-        }
     }
 
     private List<Project> getRateLimitedList(List<Project> projects) {
         List<Project> projectsToSearch = projects.subList(0, rateLimit);
 
-        if (projectsToSearch.size() <= rateLimit) {
+        if (projectsToSearch.size() <= rateLimit)
             System.out.println("Rate Limit: " + rateLimit);
             System.out.println("Projects Selected: " + projectsToSearch.size());
-        }
         return projectsToSearch;
     }
 
