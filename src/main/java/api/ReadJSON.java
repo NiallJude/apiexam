@@ -12,7 +12,7 @@ public class ReadJSON {
     // Rate Limit will not change (therefore is final)
     private static final int rateLimit = 10;
 
-    public void readJSONFile() {
+    public List<Project> readJSONFile() {
 
         // Get JSON String from the file
         String json = getJSONString();
@@ -26,6 +26,9 @@ public class ReadJSON {
 
         // Print github names
         printProjectNames(projectsToSearch);
+
+        // Return list of 10 projects
+        return projectsToSearch;
     }
 
     private void printProjectNames(List<Project> projectsToSearch) {

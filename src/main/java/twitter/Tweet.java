@@ -3,47 +3,47 @@ package twitter;
 public class Tweet {
 
     // Vars
-    private String user;
-    private String date;
-    private String messageContent;
+    private User user;
+    private String created_at;
+    private String text;
 
     // Default Constructor
-    public Tweet(String user, String date, String messageContent) {
+    public Tweet(User user, String created_at, String text) {
         this.user = user;
-        this.date = date;
-        this.messageContent = messageContent;
+        this.created_at = created_at;
+        this.text = text;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreated_at() {
+        return created_at;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
-    public String getMessageContent() {
-        return messageContent;
+    public String getText() {
+        return text;
     }
 
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
     public String toString() {
         return "Tweet{" +
                 "user='" + user + '\'' +
-                ", date='" + date + '\'' +
-                ", messageContent='" + messageContent + '\'' +
+                ", created_at='" + created_at + '\'' +
+                ", text='" + text + '\'' +
                 '}';
     }
 }

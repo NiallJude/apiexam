@@ -1,89 +1,36 @@
 package twitter;
 
-import api.CredentialManager;
+import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.*;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TwitterConnection {
 
-    private static final String endpointURL = "https://api.twitter.com/oauth2/token";
-    private static final String twitterAPIURL = "https://api.twitter.com/1.1/search/tweets.json?q=";
     private static final int tweetsPerAccount = 3;
 
-    public static void main(String[] args) throws IOException {
-
-        String encodedCredentials = "";
-        CredentialManager credentialManager = new CredentialManager();
-        encodedCredentials = credentialManager.getEncodedCredentials();
-
-        String bearerToken = "";
-        bearerToken = requestBearerToken(endpointURL, encodedCredentials);
-
-        String tweet = "";
-        String project = "ReactiveCocoa";
-        String queryUrlByProject=getQueryUrlByProject(project);
-        tweet = fetchTimelineTweet(queryUrlByProject, bearerToken);
-
-        System.out.println(tweet);
+    public TweetHandler getTweetsByProject(String project, String bearerToken) {
+        TweetHandler tweetHandler = null;
+        String queryUrlByProject = getQueryUrlByProject(project);
+        tweetHandler = getProjectTweets(queryUrlByProject, bearerToken);
+        return tweetHandler;
     }
 
-    private static String getQueryUrlByProject(String projectName) {
+    private String getQueryUrlByProject(String projectName) {
 
-        String masterString = "https://api.twitter.com/1.1/search/tweets.json?q=";
-        masterString += projectName + "&count=" + tweetsPerAccount;
-
-        return masterString;
-    }
-
-    private static String requestBearerToken(String endPointUrl, String encodedCredentials) throws IOException {
-
-        HttpsURLConnection connection = null;
-
-        try {
-            URL url = new URL(endPointUrl);
-            connection = (HttpsURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Host", "api.twitter.com");
-            connection.setRequestProperty("User-Agent", "NiallJudeDev");
-            connection.setRequestProperty("Authorization", "Basic " + encodedCredentials);
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            connection.setRequestProperty("Content-Length", "29");
-            connection.setUseCaches(false);
-
-            writeRequest(connection, "grant_type=client_credentials");
-
-            // Parse the JSON response into a JSON mapped object to fetch fields from.
-            JSONObject obj = (JSONObject) JSONValue.parse(readResponse(connection));
-
-            if (obj != null) {
-                String tokenType = (String) obj.get("token_type");
-                String token = (String) obj.get("access_token");
-
-                return ((tokenType.equals("bearer")) && (token != null)) ? token : "";
-            }
-            // return an empty string if there is no response
-            return new String();
-        } catch (MalformedURLException ex) {
-            // catch bad URL
-            throw new IOException("Invalid endpoint URL specified.", ex);
-        } finally {
-            // Tidy up connection object
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
+        String queryUrl = "https://api.twitter.com/1.1/search/tweets.json?q=";
+        queryUrl += projectName + "&count=" + tweetsPerAccount;
+        return queryUrl;
     }
 
     // Fetches the first tweet from a given user's timeline
-    private static String fetchTimelineTweet(String endPointUrl, String bearerToken) throws IOException {
+    private TweetHandler getProjectTweets(String endPointUrl, String bearerToken) {
         HttpsURLConnection connection = null;
+        TweetHandler tweetHandler = null;
 
         try {
             URL url = new URL(endPointUrl);
@@ -97,58 +44,28 @@ public class TwitterConnection {
             connection.setRequestProperty("Authorization", "Bearer " + bearerToken);
             connection.setUseCaches(false);
 
-            // Parse the JSON response into a JSON mapped object to fetch fields from.
-            JSONObject obj = (JSONObject) JSONValue.parse(readResponse(connection));
+            // Parse the JSON response into a JSON mapped object and read response
+            FileManager fileManager = new FileManager();
+            JSONObject obj = (JSONObject) JSONValue.parse(fileManager.readResponse(connection));
 
-            System.out.println(obj.toJSONString());
-
-            if (obj != null) {
-                String tweet = ((JSONObject) obj.get(0)).get("text").toString();
-
-                return (tweet != null) ? tweet : "";
-            }
-
-            return new String();
+            // Grab the toString of the object and convert to a TweetHandler object
+            Gson gson = new Gson();
+            tweetHandler = gson.fromJson(obj.toString(), TweetHandler.class);
+            // Handle all likely exceptions
         } catch (MalformedURLException ex) {
             // return an empty string if there is no response
-            throw new IOException("Invalid URL specified.", ex);
+            System.out.println("Improper URL formation. Please check your project name.");
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println("Encountered an IOException when reading input stream.");
+            ex.printStackTrace();
         } finally {
             // Tidy up connection object
             if (connection != null) {
                 connection.disconnect();
             }
         }
+        // Return the collection of Tweets for the projects
+        return tweetHandler;
     }
-
-    // Writes a request to a connection
-    private static boolean writeRequest(HttpsURLConnection connection, String textBody) {
-        try {
-            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
-            wr.write(textBody);
-            wr.flush();
-            wr.close();
-
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-
-    // Reads a response for a given connection and returns it as a string.
-    private static String readResponse(HttpsURLConnection connection) {
-        try {
-            StringBuilder str = new StringBuilder();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                str.append(line + System.getProperty("line.separator"));
-            }
-            return str.toString();
-        } catch (IOException e) {
-            return new String();
-        }
-    }
-
 }
