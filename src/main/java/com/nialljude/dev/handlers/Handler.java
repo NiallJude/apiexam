@@ -1,18 +1,14 @@
-package com.nialljude.dev.github;
+package com.nialljude.dev.handlers;
+
+import com.nialljude.dev.github.Project;
 
 import java.util.List;
 
-public class GithubApiHandler {
+public abstract class Handler {
 
     private int total_count;
     private Boolean incomplete_results;
     private List<Project> items;
-
-    public GithubApiHandler(int total_count, Boolean incomplete_results, List<Project> items) {
-        this.total_count = total_count;
-        this.incomplete_results = incomplete_results;
-        this.items = items;
-    }
 
     public int getTotal_count() {
         return total_count;
@@ -36,5 +32,14 @@ public class GithubApiHandler {
 
     public void setItems(List<Project> items) {
         this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "Handler{" +
+                "total_count=" + total_count +
+                ", incomplete_results=" + incomplete_results +
+                ", items=" + items +
+                '}';
     }
 }

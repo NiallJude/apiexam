@@ -1,4 +1,4 @@
-package com.nialljude.dev.api;
+package com.nialljude.dev.credentials;
 
 import org.apache.commons.codec.binary.Base64;
 

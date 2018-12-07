@@ -1,6 +1,8 @@
-package com.nialljude.dev.twitter;
+package com.nialljude.dev.api;
 
 import com.google.gson.Gson;
+import com.nialljude.dev.files.FileManager;
+import com.nialljude.dev.handlers.TwitterApiHandler;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -9,15 +11,15 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TwitterConnection {
+public class TwitterApiCaller {
 
     private static final int tweetsPerAccount = 3;
 
-    public TweetHandler getTweetsByProject(String project, String bearerToken) {
-        TweetHandler tweetHandler = null;
+    public TwitterApiHandler getTweetsByProject(String project, String bearerToken) {
+        TwitterApiHandler twitterApiHandler = null;
         String queryUrlByProject = getQueryUrlByProject(project);
-        tweetHandler = getProjectTweets(queryUrlByProject, bearerToken);
-        return tweetHandler;
+        twitterApiHandler = getProjectTweets(queryUrlByProject, bearerToken);
+        return twitterApiHandler;
     }
 
     private String getQueryUrlByProject(String projectName) {
@@ -28,9 +30,9 @@ public class TwitterConnection {
     }
 
     // Fetches the first tweet from a given user's timeline
-    private TweetHandler getProjectTweets(String endPointUrl, String bearerToken) {
+    private TwitterApiHandler getProjectTweets(String endPointUrl, String bearerToken) {
         HttpsURLConnection connection = null;
-        TweetHandler tweetHandler = null;
+        TwitterApiHandler twitterApiHandler = null;
 
         try {
             URL url = new URL(endPointUrl);
@@ -48,9 +50,9 @@ public class TwitterConnection {
             FileManager fileManager = new FileManager();
             JSONObject obj = (JSONObject) JSONValue.parse(fileManager.readResponse(connection));
 
-            // Grab the toString of the object and convert to a TweetHandler object
+            // Grab the toString of the object and convert to a TwitterApiHandler object
             Gson gson = new Gson();
-            tweetHandler = gson.fromJson(obj.toString(), TweetHandler.class);
+            twitterApiHandler = gson.fromJson(obj.toString(), TwitterApiHandler.class);
             // Handle all likely exceptions
         } catch (MalformedURLException ex) {
             // return an empty string if there is no response
@@ -66,6 +68,6 @@ public class TwitterConnection {
             }
         }
         // Return the collection of Tweets for the projects
-        return tweetHandler;
+        return twitterApiHandler;
     }
 }

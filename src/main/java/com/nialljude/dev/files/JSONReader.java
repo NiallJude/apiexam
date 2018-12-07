@@ -1,13 +1,13 @@
-package com.nialljude.dev.api;
+package com.nialljude.dev.files;
 
 import com.google.gson.Gson;
-import com.nialljude.dev.github.GithubApiHandler;
+import com.nialljude.dev.handlers.GithubApiHandler;
 import com.nialljude.dev.github.Project;
 
 import java.io.*;
 import java.util.List;
 
-public class ReadJSON {
+public class JSONReader {
 
     // Rate Limit will not change (therefore is final)
     private static final int rateLimit = 10;

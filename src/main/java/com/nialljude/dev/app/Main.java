@@ -1,12 +1,12 @@
 package com.nialljude.dev.app;
 
-import com.nialljude.dev.api.CallAPI;
-import com.nialljude.dev.api.CredentialManager;
-import com.nialljude.dev.api.ReadJSON;
+import com.nialljude.dev.api.GithubApiCaller;
+import com.nialljude.dev.credentials.CredentialManager;
+import com.nialljude.dev.files.JSONReader;
 import com.nialljude.dev.github.Project;
-import com.nialljude.dev.twitter.TweetHandler;
-import com.nialljude.dev.twitter.TwitterBearerToken;
-import com.nialljude.dev.twitter.TwitterConnection;
+import com.nialljude.dev.handlers.TwitterApiHandler;
+import com.nialljude.dev.credentials.TwitterBearerToken;
+import com.nialljude.dev.api.TwitterApiCaller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,25 +30,34 @@ public class Main {
     private static final String endpointURL = "https://api.twitter.com/oauth2/token";
 
     public static void main(String[] args) {
+        // Starts the application.
+        Main main = new Main();
+        main.start();
+    }
 
+    private void start() {
         runGithubAPICall();
         List<Project> projectsToSearch = getProjectsFromJSON();
         String encodedCredentials = getEncodedCredentials();
         String bearerToken = getTwitterBearerToken(encodedCredentials);
 
-        // Search for 3 recent Tweets of recent projects return list inside TweetHandler object
-        TwitterConnection twitterConnection = new TwitterConnection();
-        List<TweetHandler> allTweetsHandlers = new ArrayList<>();
-
-        System.out.println("\nFetching tweets by project...");
-        for (Project project : projectsToSearch){
-            TweetHandler tweetHandler = twitterConnection.getTweetsByProject(project.getName(),bearerToken);
-            tweetHandler.setProjectName(project.getName());
-            allTweetsHandlers.add(tweetHandler);
-        }
+        // Search for 3 recent Tweets of recent projects return list inside TwitterApiHandler object
+        TwitterApiCaller twitterApiCaller = new TwitterApiCaller();
+        List<TwitterApiHandler> allTweetsHandlers = new ArrayList<>();
+        allTweetsHandlers = getAllTweetHandlers(projectsToSearch, bearerToken, twitterApiCaller, allTweetsHandlers);
     }
 
-    private static String getTwitterBearerToken(String encodedCredentials) {
+    private List getAllTweetHandlers(List<Project> projectsToSearch, String bearerToken, TwitterApiCaller twitterApiCaller, List<TwitterApiHandler> allTweetsHandlers) {
+        System.out.println("\nFetching tweets by project...");
+        for (Project project : projectsToSearch){
+            TwitterApiHandler twitterApiHandler = twitterApiCaller.getTweetsByProject(project.getName(),bearerToken);
+            twitterApiHandler.setProjectName(project.getName());
+            allTweetsHandlers.add(twitterApiHandler);
+        }
+        return allTweetsHandlers;
+    }
+
+    private String getTwitterBearerToken(String encodedCredentials) {
         // Get Twitter Bearer Token Based on credentials
         String bearerToken = "";
         TwitterBearerToken twitterBearerToken = new TwitterBearerToken();
@@ -56,26 +65,25 @@ public class Main {
         return bearerToken;
     }
 
-    private static void runGithubAPICall() {
+    private void runGithubAPICall() {
         // Call GitHub API
-        CallAPI api = new CallAPI();
+        GithubApiCaller api = new GithubApiCaller();
         String apiToQuery = "com/nialljude/dev/github";
         String projectType = "reactive";
         api.runAPICall();
     }
 
-    private static List<Project> getProjectsFromJSON() {
+    private List<Project> getProjectsFromJSON() {
         // Read JSON and get 10 projects in a list
-        ReadJSON readJSON = new ReadJSON();
-        return readJSON.readJSONFile();
+        JSONReader JSONReader = new JSONReader();
+        return JSONReader.readJSONFile();
     }
 
-    private static String getEncodedCredentials() {
+    private String getEncodedCredentials() {
         // Securely grab Twitter credentials
         String encodedCredentials="";
         CredentialManager credentialManager = new CredentialManager();
         encodedCredentials = credentialManager.getEncodedCredentials();
         return encodedCredentials;
     }
-
 }

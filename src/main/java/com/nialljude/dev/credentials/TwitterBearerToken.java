@@ -1,5 +1,6 @@
-package com.nialljude.dev.twitter;
+package com.nialljude.dev.credentials;
 
+import com.nialljude.dev.files.FileManager;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 

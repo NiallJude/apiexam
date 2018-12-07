@@ -10,7 +10,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class CallAPI {
+public class GithubApiCaller {
 
     public void runAPICall() {
         // Initialise a closable HTTPClient and new StringBuffer

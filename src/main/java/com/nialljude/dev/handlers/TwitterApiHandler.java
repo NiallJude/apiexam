@@ -1,8 +1,10 @@
-package com.nialljude.dev.twitter;
+package com.nialljude.dev.handlers;
+
+import com.nialljude.dev.twitter.Tweet;
 
 import java.util.List;
 
-public class TweetHandler {
+public class TwitterApiHandler extends Handler {
 
     private List<Tweet> statuses;
 
@@ -16,7 +18,7 @@ public class TweetHandler {
 
     private String projectName;
 
-    public TweetHandler(List<Tweet> statuses) {
+    public TwitterApiHandler(List<Tweet> statuses) {
         this.statuses = statuses;
     }
 
