@@ -1,7 +1,9 @@
 .classpath
-.project
+.github
 .settings/
 /target/**
 .idea/workspace.xml
 GitHub.json
 secrets
+.idea
+out

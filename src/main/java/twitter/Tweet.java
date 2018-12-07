@@ -1,4 +1,4 @@
-package tweet;
+package twitter;
 
 public class Tweet {
 

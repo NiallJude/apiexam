@@ -1,8 +1,8 @@
 package api;
 
 import com.google.gson.Gson;
-import project.GithubApiHandler;
-import project.Project;
+import github.GithubApiHandler;
+import github.Project;
 
 import java.io.*;
 import java.util.List;
@@ -24,7 +24,7 @@ public class ReadJSON {
         // Get a subList of first 10 projects (cope with Twitter rate limits)
         List<Project> projectsToSearch = getRateLimitedList(projects);
 
-        // Print project names
+        // Print github names
         printProjectNames(projectsToSearch);
     }
 
