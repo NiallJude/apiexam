@@ -67,7 +67,7 @@ Instructions for Windows can be found [here](https://introcs.cs.princeton.edu/ja
 
 - Finally, with all the above steps completed, you can run the JAR file with the command below.
 
-__Command Line:__ java -jar <path-to-jar>
+__Command Line:__ java -jar \<path-to-jar>
 
 Following this, the program should run without further interaction and output directly to the command line.
 
