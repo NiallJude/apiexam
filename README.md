@@ -72,3 +72,7 @@ __Command Line:__ java -jar \<path-to-jar>
 Following this, the program should run without further interaction and output directly to the command line.
 
 ### Dependencies
+
+The following image summarises the dependencies.
+
+![Dependencies Chart](images/dependencies.png)
