@@ -28,6 +28,8 @@ Finally, the project displays the information it has gathered one project at a t
 - Project URL.
 - Tweets about project. (Displayed as _.JSON_ format objects).
 
+![Architecture Overview](images/GRID%20Reactive%20Projects.png)
+
 ## Build Instructions
 
 The following is a summary of the building, running and dependencies of this project.
