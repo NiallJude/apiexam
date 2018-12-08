@@ -54,7 +54,7 @@ The modular thread of execution (detailed in the __Description__ above) can be f
 
 In order to run this project from Command Line, you will need the following:
 
-- As mentioned above, you will need to create a Twitter Develop App as a pre-requisite to this project.
+- As mentioned above, you will need to [create a Twitter Develop App](https://developer.twitter.com/en/docs/basics/apps.html) as a pre-requisite to this project.
 You will need to obtain a __Consumer Key__ and __Consumer Secret__ to authenticate against the Twitter API.
 Instructions can be found [here](https://developer.twitter.com/en/docs/basics/authentication/guides/access-tokens).
 
