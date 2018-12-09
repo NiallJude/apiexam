@@ -1,5 +1,11 @@
 package com.nialljude.dev.twitter;
 
+/**
+ * A Custom object designed to hold
+ * Tweets from Twitter API.
+ *
+ * @author Niall Jude Collins
+ */
 public class Tweet {
 
     // Vars
@@ -14,6 +20,7 @@ public class Tweet {
         this.text = text;
     }
 
+    // Getters and Setters
     public User getUser() {
         return user;
     }

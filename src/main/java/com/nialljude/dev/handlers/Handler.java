@@ -4,6 +4,11 @@ import com.nialljude.dev.github.Project;
 
 import java.util.List;
 
+/**
+ * Abstract class for handlers.
+ *
+ * @author Niall Jude Collins
+ */
 public abstract class Handler {
 
     private int total_count;

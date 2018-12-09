@@ -1,5 +1,11 @@
 package com.nialljude.dev.github;
 
+/**
+ * A Custom object designed to hold
+ * Project objects.
+ *
+ * @author Niall Jude Collins
+ */
 public class Project {
 
     // Vars
@@ -8,6 +14,7 @@ public class Project {
     private String name;
     private String full_name;
 
+    // Constructor
     public Project(int id, String nodeId, String description, String htmlUrl, String projectUrl, String name, String full_name, String summary) {
         this.id = id;
         this.description = description;
@@ -40,7 +47,7 @@ public class Project {
         this.id = id;
     }
 
-
+    // Overridden toString
     @Override
     public String toString() {
         return "Project{" +

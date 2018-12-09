@@ -5,7 +5,13 @@ import com.nialljude.dev.github.Project;
 
 import java.util.List;
 
-public class TwitterApiHandler extends Handler {
+/**
+ * A Custom object designed to hold
+ * Twitter objects (Tweet and User).
+ *
+ * @author Niall Jude Collins
+ */
+public class TwitterApiHandler {
 
     private List<Tweet> statuses;
 
