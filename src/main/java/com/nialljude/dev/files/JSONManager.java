@@ -3,11 +3,12 @@ package com.nialljude.dev.files;
 import com.google.gson.Gson;
 import com.nialljude.dev.handlers.GithubApiHandler;
 import com.nialljude.dev.github.Project;
+import com.nialljude.dev.handlers.TwitterApiHandler;
 
 import java.io.*;
 import java.util.List;
 
-public class JSONReader {
+public class JSONManager {
 
     // Rate Limit will not change (therefore is final)
     private static final int rateLimit = 10;
@@ -64,5 +65,15 @@ public class JSONReader {
             ex.printStackTrace();
         }
         return sb.toString();
+    }
+
+    public String convertToJSON(TwitterApiHandler twitterApiHandler, String projectName){
+
+        Gson gson = new Gson();
+
+        // 2. Java object to JSON, and assign to a String
+        String jsonInString = gson.toJson(twitterApiHandler);
+
+        return jsonInString;
     }
 }

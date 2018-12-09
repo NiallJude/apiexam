@@ -2,7 +2,7 @@ package com.nialljude.dev.app;
 
 import com.nialljude.dev.api.GithubApiCaller;
 import com.nialljude.dev.credentials.CredentialManager;
-import com.nialljude.dev.files.JSONReader;
+import com.nialljude.dev.files.JSONManager;
 import com.nialljude.dev.github.Project;
 import com.nialljude.dev.handlers.TwitterApiHandler;
 import com.nialljude.dev.credentials.TwitterBearerToken;
@@ -40,18 +40,31 @@ public class Main {
         List<Project> projectsToSearch = getProjectsFromJSON();
         String encodedCredentials = getEncodedCredentials();
         String bearerToken = getTwitterBearerToken(encodedCredentials);
-
         // Search for 3 recent Tweets of recent projects return list inside TwitterApiHandler object
         TwitterApiCaller twitterApiCaller = new TwitterApiCaller();
-        List<TwitterApiHandler> allTweetsHandlers = new ArrayList<>();
-        allTweetsHandlers = getAllTweetHandlers(projectsToSearch, bearerToken, twitterApiCaller, allTweetsHandlers);
+        List<TwitterApiHandler> allTweetsHandlers;
+        allTweetsHandlers = getAllTweetHandlers(projectsToSearch, bearerToken, twitterApiCaller);
+        displayResultsInJSON(allTweetsHandlers);
     }
 
-    private List getAllTweetHandlers(List<Project> projectsToSearch, String bearerToken, TwitterApiCaller twitterApiCaller, List<TwitterApiHandler> allTweetsHandlers) {
+    private void displayResultsInJSON(List<TwitterApiHandler> allTweetsHandlers) {
+        JSONManager jsonManager = new JSONManager();
+
+        String json;
+
+        for (TwitterApiHandler twitterApiHandler : allTweetsHandlers){
+            System.out.println("\n"+twitterApiHandler.getProject().getName()+" Summary:\n");
+            json = jsonManager.convertToJSON(twitterApiHandler, twitterApiHandler.getProject().getName());
+            System.out.println(json);
+        }
+    }
+
+    private List getAllTweetHandlers(List<Project> projectsToSearch, String bearerToken, TwitterApiCaller twitterApiCaller) {
         System.out.println("\nFetching tweets by project...");
+        List<TwitterApiHandler> allTweetsHandlers = new ArrayList<>();
         for (Project project : projectsToSearch){
             TwitterApiHandler twitterApiHandler = twitterApiCaller.getTweetsByProject(project.getName(),bearerToken);
-            twitterApiHandler.setProjectName(project.getName());
+            twitterApiHandler.setProject(project);
             allTweetsHandlers.add(twitterApiHandler);
         }
         return allTweetsHandlers;
@@ -59,7 +72,7 @@ public class Main {
 
     private String getTwitterBearerToken(String encodedCredentials) {
         // Get Twitter Bearer Token Based on credentials
-        String bearerToken = "";
+        String bearerToken;
         TwitterBearerToken twitterBearerToken = new TwitterBearerToken();
         bearerToken = twitterBearerToken.requestBearerToken(endpointURL, encodedCredentials);
         return bearerToken;
@@ -68,20 +81,18 @@ public class Main {
     private void runGithubAPICall() {
         // Call GitHub API
         GithubApiCaller api = new GithubApiCaller();
-        String apiToQuery = "com/nialljude/dev/github";
-        String projectType = "reactive";
         api.runAPICall();
     }
 
     private List<Project> getProjectsFromJSON() {
         // Read JSON and get 10 projects in a list
-        JSONReader JSONReader = new JSONReader();
-        return JSONReader.readJSONFile();
+        JSONManager JSONManager = new JSONManager();
+        return JSONManager.readJSONFile();
     }
 
     private String getEncodedCredentials() {
         // Securely grab Twitter credentials
-        String encodedCredentials="";
+        String encodedCredentials;
         CredentialManager credentialManager = new CredentialManager();
         encodedCredentials = credentialManager.getEncodedCredentials();
         return encodedCredentials;

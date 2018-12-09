@@ -15,7 +15,7 @@ public class GithubApiCaller {
     public void runAPICall() {
         // Initialise a closable HTTPClient and new StringBuffer
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        StringBuffer result = new StringBuffer();
+        StringBuffer result;
 
         // Variables to build Github query
         // To match 'https://api.github.com/search/repositories\?q\=reactive'
@@ -24,10 +24,13 @@ public class GithubApiCaller {
         String path = "/search/repositories";
         String searchParameter = "q";
         String searchValue = "reactive";
+        String sortParameter = "&";
+        String sortValue = "sort=stars";
+
         String fileName = "Github.json";
 
         // Get StringBuffer result from API Call
-        result = getAPIResponse(httpClient, scheme, host, path, searchParameter, searchValue);
+        result = getAPIResponse(httpClient, scheme, host, path, searchParameter, searchValue, sortParameter, sortValue);
 
         // Write response to a file in JSON
         writeResponse(result, fileName);
@@ -53,13 +56,13 @@ public class GithubApiCaller {
         }
     }
 
-    private StringBuffer getAPIResponse(CloseableHttpClient httpclient, String scheme, String host, String path, String searchParameter, String searchValue) {
+    private StringBuffer getAPIResponse(CloseableHttpClient httpclient, String scheme, String host, String path, String searchParameter, String searchValue, String sortParameter, String sortValue) {
         // Initalise response and result
         HttpResponse response;
         StringBuffer result = new StringBuffer();
 
         try {
-            URI uri = getUri(scheme, host, path, searchParameter, searchValue);
+            URI uri = getUri(scheme, host, path, searchParameter, searchValue, sortParameter, sortValue);
             HttpGet httpGet = new HttpGet(uri);
             httpGet.addHeader("accept", "application/json");
             response = httpclient.execute(httpGet);
@@ -94,12 +97,13 @@ public class GithubApiCaller {
         return result;
     }
 
-    public URI getUri(String scheme, String host, String path, String searchParameter, String searchValue) throws URISyntaxException {
+    public URI getUri(String scheme, String host, String path, String searchParameter, String searchValue, String sortParameter, String sortValue) throws URISyntaxException {
         return new URIBuilder()
                 .setScheme(scheme)
                 .setHost(host)
                 .setPath(path)
                 .setParameter(searchParameter, searchValue)
+                .setParameter(sortParameter, sortValue)
                 .build();
     }
 
