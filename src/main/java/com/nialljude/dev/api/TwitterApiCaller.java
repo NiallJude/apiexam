@@ -15,14 +15,14 @@ import java.net.URL;
  * Handles the calling of the Twitter API.
  * Returns the Handler object for each project.
  *
- * @author - Niall Jude Collins
+ * @author Niall Jude Collins
  */
 public class TwitterApiCaller {
 
     /**
      * Number of Tweets per account.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      */
     private static final int tweetsPerAccount = 3;
 
@@ -30,7 +30,7 @@ public class TwitterApiCaller {
      * Get Tweets from the Twitter API
      * Three per project.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @param project - Project Name to query for.
      * @param bearerToken - Bearer Token Credentials.
      * @return twitterApiHandler - A handler object to hold the response objects and projects.
@@ -46,7 +46,7 @@ public class TwitterApiCaller {
      * Construct the Query URL
      * Base+project+numberOfTweets
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @param projectName - Project Name to query for.
      * @return queryUrl - URL to query.
      */
@@ -62,7 +62,7 @@ public class TwitterApiCaller {
      * Uses javax.net.ssl library and GSON.
      * Processes response data and assigns it to objects.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @param endPointUrl - URL to Query.
      * @param bearerToken - Credentials.
      * @return twitterApiHandler - Twitter API Handler object.

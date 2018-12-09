@@ -13,16 +13,48 @@ public class Project {
     private String description;
     private String name;
     private String full_name;
+    private String url;
+    private int watchers_count;
+    private int forks_count;
 
     // Constructor
-    public Project(int id, String nodeId, String description, String htmlUrl, String projectUrl, String name, String full_name, String summary) {
+
+    public Project(int id, String description, String name, String full_name, String url, int watchers_count, int forks_count) {
         this.id = id;
         this.description = description;
         this.name = name;
         this.full_name = full_name;
+        this.url = url;
+        this.watchers_count = watchers_count;
+        this.forks_count = forks_count;
     }
 
+
     // Getters and Setters
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getWatchers_count() {
+        return watchers_count;
+    }
+
+    public void setWatchers_count(int watchers_count) {
+        this.watchers_count = watchers_count;
+    }
+
+    public int getForks_count() {
+        return forks_count;
+    }
+
+    public void setForks_count(int forks_count) {
+        this.forks_count = forks_count;
+    }
+
     public String getName() {
         return name;
     }
@@ -39,6 +71,14 @@ public class Project {
         return full_name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,6 +88,7 @@ public class Project {
     }
 
     // Overridden toString
+
     @Override
     public String toString() {
         return "Project{" +
@@ -55,6 +96,9 @@ public class Project {
                 ", description='" + description + '\'' +
                 ", name='" + name + '\'' +
                 ", full_name='" + full_name + '\'' +
+                ", url='" + url + '\'' +
+                ", watchers_count=" + watchers_count +
+                ", forks_count=" + forks_count +
                 '}';
     }
 }

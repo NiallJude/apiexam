@@ -114,15 +114,30 @@ public class JSONManager {
      *
      * @author Niall Jude Collins
      * @param twitterApiHandler
-     * @param projectName
      * @return The JSON inside a String. Ready to Print.
      */
-    public String convertToJSON(TwitterApiHandler twitterApiHandler, String projectName){
+    public String convertToJSON(TwitterApiHandler twitterApiHandler){
 
         Gson gson = new Gson();
 
         // 2. Java object to JSON, and assign to a String
         String jsonInString = gson.toJson(twitterApiHandler);
+
+        return jsonInString;
+    }
+
+    /**
+     * Convert the Project objects to JSON form String.
+     * This is to satisfy the display requirements.
+     *
+     * @author Niall Jude Collins
+     * @param project
+     * @return The JSON inside a String. Ready to Print.
+     */
+    public String convertToJSON(Project project) {
+        Gson gson = new Gson();
+
+        String jsonInString = gson.toJson(project);
 
         return jsonInString;
     }

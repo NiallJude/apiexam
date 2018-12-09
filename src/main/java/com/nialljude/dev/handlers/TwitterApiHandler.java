@@ -17,6 +17,9 @@ public class TwitterApiHandler {
 
     private Project project;
 
+    // Blank constructor.
+    public TwitterApiHandler() {}
+
     public Project getProject() {
         return project;
     }

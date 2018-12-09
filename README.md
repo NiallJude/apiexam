@@ -24,6 +24,7 @@ And [GSON](https://github.com/google/gson) translates this __.json__ output to c
 Finally, the project displays the information it has gathered one project at a time. In the format:
 
 - Project Name.
+- Project Full Name.
 - Project Summary.
 - Project URL.
 - Tweets about project. (Displayed as _.JSON_ format objects).
@@ -78,3 +79,17 @@ Following this, the program should run without further interaction and output di
 The following image summarises the dependencies.
 
 ![Dependencies Chart](images/dependencies.png)
+
+### Known Issues and Improvements
+
+The following is a list of known issues and improvements for this project at MVP completion time.
+
+- The Github and Twitter API callers have slightly different use cases. And as such - they use two different methods for communication and receiving of information.
+This results in a lot more code. To promote code re-use and futureproofing - the code will be refactored to use a common resource / method overloading.
+
+- The Handler objects do not currently have any overlap. In future use cases they may have - so they have been packaged with an Abstract
+handler class which would allow Polymorphism there.
+
+- Despite sorting by Stars - certain Github projects return no Tweets from their query. In future, a work around
+would be established to ensure that projects with Tweets about them are selected. Whilst there is still value in a project
+with no tweets, a number of Tweets would make the output more meaningful.  

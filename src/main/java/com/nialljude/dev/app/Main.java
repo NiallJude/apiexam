@@ -22,7 +22,7 @@ import java.util.List;
  * The github uses Apache HTTPClient for the API calls.
  * The github builds an executable JAR with all dependencies
  * using Maven - as defined in the pom.xml.
- * @author - Niall Jude Collins
+ * @author Niall Jude Collins
  * @link - https://github.com/NiallJude/apiexam
  */
 public class Main {
@@ -32,7 +32,7 @@ public class Main {
     /**
      * Runs the application.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      */
     public static void main(String[] args) {
         // Starts the application.
@@ -44,19 +44,23 @@ public class Main {
      * Follows entire thread of execution for the application.
      * Inline comments summarise each stage.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      */
     private void start() {
         // Call GitHub API
+        System.out.println("Querying Github for Reactive projects...\n");
         runGithubAPICall();
         // Select ten projects from results
         List<Project> projectsToSearch = getProjectsFromJSON();
         // Get encoded credentials and bearer token for Twitter call.
+        System.out.println("\nGetting Bearer Token for Twitter Access...");
         String encodedCredentials = getEncodedCredentials();
         String bearerToken = getTwitterBearerToken(encodedCredentials);
         // Search for 3 recent Tweets of recent projects return list inside TwitterApiHandler object
+        System.out.println("\nCalling Twitter...");
         TwitterApiCaller twitterApiCaller = new TwitterApiCaller();
         // Display information on each project and the Tweets about it.
+        System.out.println("\nProcessing results...");
         List<TwitterApiHandler> allTweetsHandlers;
         allTweetsHandlers = getAllTweetHandlers(projectsToSearch, bearerToken, twitterApiCaller);
         displayResultsInJSON(allTweetsHandlers);
@@ -68,17 +72,26 @@ public class Main {
      * object, the name of the project is printed for clarity.
      * Each TwitterAPIHandler contains Tweet, User and Projects objects.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @param  allTweetsHandlers  A List of all TwitterAPIHandlers
      */
     private void displayResultsInJSON(List<TwitterApiHandler> allTweetsHandlers) {
         JSONManager jsonManager = new JSONManager();
 
         String json;
+        String projectJSON;
+
+        System.out.println("\nPrinting Project Summary and JSON of  <Project>, <Tweet>, and <User> objects...");
 
         for (TwitterApiHandler twitterApiHandler : allTweetsHandlers){
-            System.out.println("\n"+twitterApiHandler.getProject().getName()+" Summary:\n");
-            json = jsonManager.convertToJSON(twitterApiHandler, twitterApiHandler.getProject().getName());
+            // Print Project Name
+            System.out.println("\nProject: "+twitterApiHandler.getProject().getName());
+            // Print Project JSON Summary
+            projectJSON = jsonManager.convertToJSON(twitterApiHandler.getProject());
+            System.out.println("\n"+projectJSON);
+            // Print Tweets about Project - Without printing project again
+            twitterApiHandler.setProject(null);
+            json = jsonManager.convertToJSON(twitterApiHandler);
             System.out.println(json);
         }
     }
@@ -87,7 +100,7 @@ public class Main {
      * Call the Twitter API - and dynamically create TweetHandlerObjects to
      * hold the responses in Java objects. This is translated using GSON.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @param projectsToSearch - A List of Project names to query Twitter for
      * @param bearerToken - The base 64 string credential which authenticates the app to Twitter.
      * @param twitterApiCaller - The instance of the class that handles the Twitter API call.
@@ -108,7 +121,7 @@ public class Main {
      * Create a bearer token by querying Twitter with the encoded credentials.
      * Credentials to be stored in 'secrets/credentials.csv'.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @param encodedCredentials - A String constructed by combining the Consumer Key and Secret.
      * @return bearerToken - The object for authentication.
      */
@@ -126,7 +139,7 @@ public class Main {
      * on the root of the project for ingestion and conversion
      * to Java Objects.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      */
     private void runGithubAPICall() {
         // Call GitHub API
@@ -139,7 +152,7 @@ public class Main {
      * Take the output of the Github query
      * and process it.
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @return A list of Project objects from the Github API response.
      */
     private List<Project> getProjectsFromJSON() {
@@ -152,7 +165,7 @@ public class Main {
      * Get Encoded Credentials from file.
      * File must be located at 'secrets/credentials.csv'
      *
-     * @author - Niall Jude Collins
+     * @author Niall Jude Collins
      * @return encodedCredentials - The credentials for Twitter (encoded)
      */
     private String getEncodedCredentials() {
