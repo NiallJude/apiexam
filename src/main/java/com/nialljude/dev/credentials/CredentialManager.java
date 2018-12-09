@@ -9,8 +9,22 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the secure fetching, processing and returning
+ * of credentials for contacting the Twitter API.
+ *
+ * @author - Niall Jude Collins
+ */
 public class CredentialManager {
 
+    /**
+     * Public method to be called when encoded credentials
+     * are required after calling Github and before calling
+     * Twitter.
+     *
+     * @author Niall Jude Collins
+     * @return credentialsEncoded - The crednetials.
+     */
     public String getEncodedCredentials () {
 
         // Get String ArrayList of Credentials
@@ -28,7 +42,14 @@ public class CredentialManager {
         return credentialsEncoded;
     }
 
-    // Encodes the consumer key and secret to create the basic authorization key
+    /** Encodes the consumer key and secret to create the basic authorization key
+     *
+     * @author Niall Jude Collins
+     * @param consumerKey
+     * @param consumerSecret
+     * @return The encoded bytes in String format.
+     * @exception UnsupportedEncodingException - RARE. Will return empty.
+     */
     private String encodeKeys(String consumerKey, String consumerSecret) {
         try {
             String encodedConsumerKey = URLEncoder.encode(consumerKey, "UTF-8");
@@ -43,6 +64,14 @@ public class CredentialManager {
         }
     }
 
+    /**
+     * Secrets are located at secrets/credentials.csv.
+     * They are part of .gitignore and will not be committed to SCM.
+     *
+     * @author Niall Jude Collins
+     * @return credentials - The credentials for Twitter securely handled from file.
+     * @exception FileNotFoundException - If you get this, please ensure credentials are located correctly.
+     */
     private ArrayList getCredentialsArray() {
         ArrayList<String> credentials = new ArrayList<>();
 

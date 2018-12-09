@@ -9,8 +9,25 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Post Credentials to Twitter API
+ * The API will return a Bearer Token.
+ *
+ * @author Niall Collins
+ */
 public class TwitterBearerToken {
 
+    /**
+     * Post credentials to Twitter API.
+     * Consumer Key and Secret.
+     * Twitter will respond with a BearerToken.
+     *
+     * @param endPointUrl - URL to hit - supplied by static variable in Main.
+     * @param encodedCredentials - Credentials encoded.
+     * @return bearerToken - This will be used to authenticate queries.
+     * @exception MalformedURLException - The URL was improperly formed.
+     * @exception IOException - The process of writing the Bearer Token failed.
+     */
     public String requestBearerToken(String endPointUrl, String encodedCredentials) {
 
         HttpsURLConnection connection = null;
