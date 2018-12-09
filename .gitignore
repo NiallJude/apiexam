@@ -3,7 +3,7 @@
 .settings/
 /target/**
 .idea/workspace.xml
-GitHub.json
+Github.json
 secrets
 .idea
 out

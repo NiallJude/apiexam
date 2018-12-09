@@ -78,6 +78,33 @@ The following image summarises the dependencies.
 
 ![Dependencies Chart](images/dependencies.png)
 
+### Directory Structure
+
+````
+    -- images
+    -- secrets
+    -- src
+        --main
+            -- java
+                -- com.nialljude.dev
+                    -- api 
+                    -- app
+                    -- credentials
+                    -- files
+                    -- github
+                    -- handlers
+                    -- twitter
+            -- resources
+    -- target
+    - .gitignore
+    - .apiexam.iml
+    - CODE_OF_CONDUCT.md
+    - LICENSE
+    - pom.xml
+    - README.md
+    
+````
+
 ### Known Issues and Improvements
 
 The following is a list of known issues and improvements for this project at MVP completion time.
