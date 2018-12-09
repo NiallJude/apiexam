@@ -24,10 +24,8 @@ And [GSON](https://github.com/google/gson) translates this __.json__ output to c
 Finally, the project displays the information it has gathered one project at a time. In the format:
 
 - Project Name.
-- Project Full Name.
-- Project Summary.
-- Project URL.
-- Tweets about project. (Displayed as _.JSON_ format objects).
+- Project summary. (Displayed as _.JSON_ format objects).
+- Tweets about project and user info. (Displayed as _.JSON_ format objects).
 
 ![Architecture Overview](images/GRID%20Reactive%20Projects.png)
 
