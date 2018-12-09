@@ -12,6 +12,12 @@ import java.net.URISyntaxException;
 
 public class GithubApiCaller {
 
+    /**
+     * Call the Github API - construct the URI in stages.
+     * Searches for Reactive projects and sorts by Stars.
+     *
+     * @author - Niall Jude Collins
+     */
     public void runAPICall() {
         // Initialise a closable HTTPClient and new StringBuffer
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -38,6 +44,13 @@ public class GithubApiCaller {
         closeResource(httpClient);
     }
 
+    /**
+     * Close the HttpClient resource.
+     * It will not be needed again.
+     *
+     * @author - Niall Jude Collins
+     * @exception IOException - Potential if the httpClient cannot be found (rare).
+     */
     private void closeResource(CloseableHttpClient httpClient) {
         try {
             httpClient.close();
@@ -47,6 +60,16 @@ public class GithubApiCaller {
         }
     }
 
+    /**
+     * Write the String Buffer content to a file.
+     * This will be analysed and converted into
+     * Project objects.
+     *
+     * @author - Niall Jude Collins
+     * @param result - Results of the API Call (to write).
+     * @param fileName - The name of the file this will create.
+     * @exception  IOException - Read/Writes may fail.
+     */
     private void writeResponse(StringBuffer result, String fileName) {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(fileName), "utf-8"))) {
@@ -56,6 +79,26 @@ public class GithubApiCaller {
         }
     }
 
+    /**
+     * Call the Github API.
+     * Sorts by stars.
+     * Orders descending (default).
+     * Captures the response and returns it.
+     *
+     * @author - Niall Jude Collins
+     * @param httpclient - The HTTPClient from Apache that will handle the call.
+     * @param scheme - HTTP or HTTPS?
+     * @param host - The website (api.github.com)
+     * @param path - /search/repositories - The sub directories of api.github.com to query
+     * @param searchParameter - q - The query notation.
+     * @param searchValue- The type of repository to search for: reactive in this case.
+     * @param sortParameter - &sort Add sorting command to output
+     * @param sortValue- What to sort on (stars in this case).
+     * @return result - The StringBuffer output of the response.
+     * @exception URISyntaxException - URI May not have been correctly set up.
+     * @exception IOException - The Read/Write of the data may fail (unlikely).
+     * @exception RuntimeException - Thrown in the result of a non-200 HTTP code.
+     */
     private StringBuffer getAPIResponse(CloseableHttpClient httpclient, String scheme, String host, String path, String searchParameter, String searchValue, String sortParameter, String sortValue) {
         // Initalise response and result
         HttpResponse response;
@@ -85,11 +128,18 @@ public class GithubApiCaller {
         return result;
     }
 
+    /**
+     * Process the response and return.
+     * Throws IOException.
+     *
+     * @author - Niall Jude Collins
+     * @param response - The HTTP Response from the API.
+     */
     private StringBuffer processResponse(HttpResponse response) throws IOException {
 
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         StringBuffer result = new StringBuffer();
-        String line = "";
+        String line;
 
         while ((line = rd.readLine()) != null)
             result.append(line);
@@ -97,6 +147,20 @@ public class GithubApiCaller {
         return result;
     }
 
+    /**
+     * Process the response and return.
+     * Throws IOException.
+     *
+     * @author - Niall Jude Collins
+     * @param scheme - HTTP or HTTPS?
+     * @param host - The website (api.github.com)
+     * @param path - /search/repositories - The sub directories of api.github.com to query
+     * @param searchParameter - q - The query notation.
+     * @param searchValue- The type of repository to search for: reactive in this case.
+     * @param sortParameter - &sort Add sorting command to output
+     * @param sortValue- What to sort on (stars in this case).
+     * @return URI - The object with which to query the API.
+     */
     public URI getUri(String scheme, String host, String path, String searchParameter, String searchValue, String sortParameter, String sortValue) throws URISyntaxException {
         return new URIBuilder()
                 .setScheme(scheme)
@@ -107,7 +171,13 @@ public class GithubApiCaller {
                 .build();
     }
 
-    private void printResponse(String s) {
-        System.out.println(s);
+    /**
+     * Simply print a given String.
+     *
+     * @author - Niall Jude Collins
+     * @param string - String to print.
+     */
+    private void printResponse(String string) {
+        System.out.println(string);
     }
 }
