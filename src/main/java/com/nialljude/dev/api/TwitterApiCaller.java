@@ -11,17 +11,45 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Handles the calling of the Twitter API.
+ * Returns the Handler object for each project.
+ *
+ * @author - Niall Jude Collins
+ */
 public class TwitterApiCaller {
 
+    /**
+     * Number of Tweets per account.
+     *
+     * @author - Niall Jude Collins
+     */
     private static final int tweetsPerAccount = 3;
 
+    /**
+     * Get Tweets from the Twitter API
+     * Three per project.
+     *
+     * @author - Niall Jude Collins
+     * @param project - Project Name to query for.
+     * @param bearerToken - Bearer Token Credentials.
+     * @return twitterApiHandler - A handler object to hold the response objects and projects.
+     */
     public TwitterApiHandler getTweetsByProject(String project, String bearerToken) {
-        TwitterApiHandler twitterApiHandler = null;
+        TwitterApiHandler twitterApiHandler;
         String queryUrlByProject = getQueryUrlByProject(project);
         twitterApiHandler = getProjectTweets(queryUrlByProject, bearerToken);
         return twitterApiHandler;
     }
 
+    /**
+     * Construct the Query URL
+     * Base+project+numberOfTweets
+     *
+     * @author - Niall Jude Collins
+     * @param projectName - Project Name to query for.
+     * @return queryUrl - URL to query.
+     */
     private String getQueryUrlByProject(String projectName) {
 
         String queryUrl = "https://api.twitter.com/1.1/search/tweets.json?q=";
@@ -29,7 +57,16 @@ public class TwitterApiCaller {
         return queryUrl;
     }
 
-    // Fetches the first tweet from a given user's timeline
+    /**
+     * Query the Twitter API.
+     * Uses javax.net.ssl library and GSON.
+     * Processes response data and assigns it to objects.
+     *
+     * @author - Niall Jude Collins
+     * @param endPointUrl - URL to Query.
+     * @param bearerToken - Credentials.
+     * @return twitterApiHandler - Twitter API Handler object.
+     */
     private TwitterApiHandler getProjectTweets(String endPointUrl, String bearerToken) {
         HttpsURLConnection connection = null;
         TwitterApiHandler twitterApiHandler = null;

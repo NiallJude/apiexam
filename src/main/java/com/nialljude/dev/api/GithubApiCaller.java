@@ -10,6 +10,12 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Handles the process of calling the GitHub API.
+ * Uses a mix of Apache HTTPClient and Java.net packages.
+ *
+ * @author - Niall Jude Collins
+ */
 public class GithubApiCaller {
 
     /**
