@@ -2,6 +2,9 @@ package com.nialljude.dev.twitter;
 
 /**
  * User objects for Twitter API.
+ * There are no Getters or Setters
+ * because GSON uses the Constructor
+ * and the objects are printed directly.
  *
  * @author Niall Jude Collins
  */
