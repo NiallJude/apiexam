@@ -44,13 +44,4 @@ public class Tweet {
     public void setText(String text) {
         this.text = text;
     }
-
-    @Override
-    public String toString() {
-        return "Tweet{" +
-                "user='" + user + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", text='" + text + '\'' +
-                '}';
-    }
 }
