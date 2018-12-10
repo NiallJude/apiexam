@@ -117,4 +117,9 @@ handler class which would allow Polymorphism there.
 
 - Despite sorting by Stars - certain Github projects return no Tweets from their query. In future, a work around
 would be established to ensure that projects with Tweets about them are selected. Whilst there is still value in a project
-with no tweets, a number of Tweets would make the output more meaningful.  
+with no tweets, a number of Tweets would make the output more meaningful.
+
+- All File management is done with BufferedWriters and InputStreams. While functional, these methods are clunky and difficult to test.
+In future iterations, a suitable Library will be researched and implemented to solve the Read/Write requirements.
+
+- The project has 100% Code Coverage of certain classes. In future iterations this will be expanded to include every class.
