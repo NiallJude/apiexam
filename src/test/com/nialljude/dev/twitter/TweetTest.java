@@ -24,7 +24,6 @@ public class TweetTest {
         testDescription = "test4";
         testUrl = "test5";
         testUser = new User(testScreen_name, testDescription, testUrl);
-
         testTweet = new Tweet(testUser, testCreated_at, testText);
     }
 

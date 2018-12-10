@@ -28,15 +28,7 @@ public class TwitterApiHandler {
         this.project = project;
     }
 
-    public TwitterApiHandler(List<Tweet> statuses) {
-        this.statuses = statuses;
-    }
+    public void setStatuses(List<Tweet> statuses){ this.statuses = statuses; }
 
-    public List<Tweet> getStatuses() {
-        return statuses;
-    }
-
-    public void setStatuses(List<Tweet> statuses) {
-        this.statuses = statuses;
-    }
+    public List<Tweet> getStatuses () {return this.statuses;}
 }

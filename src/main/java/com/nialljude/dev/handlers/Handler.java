@@ -10,10 +10,12 @@ import java.util.List;
  * @author Niall Jude Collins
  */
 public abstract class Handler {
-    
+
     private List<Project> items;
 
     public List<Project> getItems() {
         return items;
     }
+
+    public void setItems(List<Project> items) { this.items =items; }
 }

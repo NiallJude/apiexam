@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class GithubApiHandler extends Handler {
 
-    public GithubApiHandler(int total_count, Boolean incomplete_results, List<Project> items) {
+    public GithubApiHandler(List<Project> items) {
         super();
     }
 }
