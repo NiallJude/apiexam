@@ -6,6 +6,7 @@ import com.nialljude.dev.github.Project;
 import com.nialljude.dev.handlers.TwitterApiHandler;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +18,8 @@ import java.util.List;
 public class JSONManager {
 
     // Rate Limit will not change (therefore is final)
-    private static final int rateLimit = 10;
-    private static final String filepath = "Github.json";
+    private final int rateLimit = 10;
+    private final String filepath = "Github.json";
 
     /**
      * Return a list of all projectsToSearch (usually 10 items long).
@@ -65,7 +66,12 @@ public class JSONManager {
      * @return The cut list.
      */
     private List<Project> getRateLimitedList(List<Project> projects) {
-        List<Project> projectsToSearch = projects.subList(0, rateLimit);
+
+        List<Project> projectsToSearch = new ArrayList<>();
+
+        if (projects.size() > rateLimit) {
+            projectsToSearch = projects.subList(0, rateLimit);
+        }
 
         if (projectsToSearch.size() <= rateLimit)
             System.out.println("Rate Limit: " + rateLimit);
@@ -117,12 +123,9 @@ public class JSONManager {
      * @return The JSON inside a String. Ready to Print.
      */
     public String convertToJSON(TwitterApiHandler twitterApiHandler){
-
         Gson gson = new Gson();
-
         // 2. Java object to JSON, and assign to a String
         String jsonInString = gson.toJson(twitterApiHandler);
-
         return jsonInString;
     }
 
@@ -136,9 +139,7 @@ public class JSONManager {
      */
     public String convertToJSON(Project project) {
         Gson gson = new Gson();
-
         String jsonInString = gson.toJson(project);
-
         return jsonInString;
     }
 }
