@@ -3,7 +3,6 @@ package com.nialljude.dev;
 import com.nialljude.dev.api.GithubApiCallerTest;
 import com.nialljude.dev.api.TwitterApiCallerTest;
 import com.nialljude.dev.credentials.CredentialManagerTest;
-import com.nialljude.dev.credentials.TwitterBearerToken;
 import com.nialljude.dev.credentials.TwitterBearerTokenTest;
 import com.nialljude.dev.files.FileManagerTest;
 import com.nialljude.dev.files.JSONManagerTest;
