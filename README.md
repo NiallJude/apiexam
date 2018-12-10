@@ -78,9 +78,18 @@ The following image summarises the dependencies.
 
 ![Dependencies Chart](images/dependencies.png)
 
+### Testing Framework
+
+This projects is tested with __JUnit v4__, __Mockito__ and certain private methods are testing using the Java __Reflection__ framework.
+
+### Example Output
+
+For reference, the output of an example run has been stored in a text file, located in the _example_ directory in the project root.
+
 ### Directory Structure
 
 ````
+    -- example
     -- images
     -- secrets
     -- src
@@ -88,6 +97,15 @@ The following image summarises the dependencies.
             -- java
                 -- com.nialljude.dev
                     -- api 
+                    -- app
+                    -- credentials
+                    -- files
+                    -- github
+                    -- handlers
+                    -- twitter
+            -- test
+                -- com.nialljude.dev
+                    -- api
                     -- app
                     -- credentials
                     -- files
