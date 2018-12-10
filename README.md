@@ -82,6 +82,8 @@ The following image summarises the dependencies.
 
 This projects is tested with __JUnit v4__, __Mockito__ and certain private methods are testing using the Java __Reflection__ framework.
 
+![TestSuiteResults](images/tests.png)
+
 ### Example Output
 
 For reference, the output of an example run has been stored in a text file, located in the _example_ directory in the project root.
